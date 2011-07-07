@@ -1,7 +1,11 @@
+"Tabs
 set ts=2
 set expandtab
 set smartindent
 set autoindent
+
+"Syntax highlighting
+syntax on
 
 "Line numbers
 set number
