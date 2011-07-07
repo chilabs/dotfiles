@@ -1,4 +1,5 @@
 {'word': '/home/peter/dotfiles'}
+{'word': '/home/peter/dotfiles/.git'}
 {'word': '/home/peter/dotfiles/vim'}
 {'word': '/home/peter/dotfiles/bash'}
 {'word': '/home/peter/dotfiles/ssh'}
@@ -47,4 +48,3 @@
 {'word': '/home/peter/Documents/4a/eventdex/.metadata'}
 {'word': '/home/peter/Documents/4a/eventdex/prototype/eventdex'}
 {'word': '/home/peter/projects/chilabsDJ'}
-{'word': '/etc/mysql'}

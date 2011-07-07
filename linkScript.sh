@@ -2,6 +2,7 @@
 ln -s ~/dotfiles/ssh/config ~/.ssh/config
 
 #BASH
+ln -s ~/dotfiles/bash/.profile ~/.profile
 ln -s ~/dotfiles/bash/.bashrc ~/.bashrc
 ln -s ~/dotfiles/bash/.logout ~/.bash_logout
 
