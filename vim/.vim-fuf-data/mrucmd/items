@@ -1,12 +1,13 @@
-{'word': ':q', 'time': 1310008160}
-{'word': ':w', 'time': 1310008159}
+{'word': ':q', 'time': 1310016455}
+{'word': ':w2', 'time': 1310016453}
+{'word': ':w', 'time': 1310016381}
+{'word': ':q!', 'time': 1310014530}
 {'word': ':sp env', 'time': 1310002145}
 {'word': ':vs config', 'time': 1310002094}
 {'word': '/aliases', 'time': 1310001960}
 {'word': ':vs aliases', 'time': 1310001616}
 {'word': ':vim aliases', 'time': 1310001609}
 {'word': '/alias', 'time': 1310001567}
-{'word': ':q!', 'time': 1309992706}
 {'word': ':NERDTreeToggle', 'time': 1309361499}
 {'word': '/performance', 'time': 1309139441}
 {'word': '/gethostbyname', 'time': 1309063873}
@@ -131,7 +132,6 @@
 {'word': '/`participant`', 'time': 1306725721}
 {'word': '/`attendance`', 'time': 1306722204}
 {'word': '/Partici', 'time': 1306721079}
-{'word': ':w2', 'time': 1306716571}
 {'word': '/''no', 'time': 1306716534}
 {'word': '/is_e', 'time': 1306716502}
 {'word': '/enum', 'time': 1306716407}

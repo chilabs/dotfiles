@@ -1,0 +1,17 @@
+[user]
+	name = Peter Xie
+	email = x4xie@engmail.uwaterloo.ca
+[core]
+	editor = vim
+[alias]
+	st = status
+	ci = commit
+	co = checkout
+	br = branch
+[color]
+	branch = auto
+	diff = auto
+	interactive = auto
+	status = auto
+[mergetool]
+	tool = vimdiff
