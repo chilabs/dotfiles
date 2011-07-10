@@ -1,6 +1,11 @@
+"File specific settings
+autocmd FileType cpp setlocal shiftwidth=2 tabstop=2
+
 "Tabs
-set ts=2
+"set ts=4
+"set shiftwidth=4
 set expandtab
+set smarttab
 set smartindent
 set autoindent
 
