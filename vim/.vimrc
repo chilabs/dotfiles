@@ -2,16 +2,33 @@
 set nocp
 filetype plugin on
 
-autocmd FileType cpp setlocal shiftwidth=2 tabstop=2
-autocmd FileType python set omnifunc=pythoncomplete#Complete
-autocmd FileType javascript set omnifunc=javascriptcomplete#CompleteJS
-autocmd FileType html set omnifunc=htmlcomplete#CompleteTags
-autocmd FileType css set omnifunc=csscomplete#CompleteCSS
-autocmd FileType xml set omnifunc=xmlcomplete#CompleteTags
-autocmd FileType c set omnifunc=ccomplete#Complete
+if has('autocmd')
+   autocmd FileType cpp setlocal shiftwidth=2 tabstop=2
+   autocmd FileType python set omnifunc=pythoncomplete#Complete shiftwidth=2 tabstop=2
+   autocmd FileType javascript set omnifunc=javascriptcomplete#CompleteJS
+   autocmd FileType html set omnifunc=htmlcomplete#CompleteTags
+   autocmd FileType css set omnifunc=csscomplete#CompleteCSS
+   autocmd FileType xml set omnifunc=xmlcomplete#CompleteTags
+   autocmd FileType c set omnifunc=ccomplete#Complete
+   
+   autocmd CursorMovedI * if pumvisible() == 0|pclose|endif 
+   autocmd InsertLeave * if pumvisible() == 0|pclose|endif
+endif
 
-autocmd CursorMovedI * if pumvisible() == 0|pclose|endif 
-autocmd InsertLeave * if pumvisible() == 0|pclose|endif
+"Ignore File Types During Tabcomplete
+set wildignore=*.swp,*.bak,*.pyc,*.class,*.o
+set wildmenu
+set wildmode=list:longest
+
+"Remove the need to hit shift to do :w
+nnoremap ; :
+
+
+set showmode
+set showcmd
+
+"Set Leader Key to ,
+let mapleader = ","
 
 "Tabs
 "set ts=4
@@ -20,13 +37,14 @@ set expandtab
 set smarttab
 set smartindent
 set autoindent
+set backspace=indent,eol,start
 
 "Syntax highlighting
 syntax on
+set t_Co=256
 
 "Line numbers
 set number
-set t_Co=256
 
 "Incremental search, highlight when searching and ignore case when searching
 "Also turns ON smartcase which turns on case sensitive searching when
@@ -35,11 +53,13 @@ set incsearch
 set hlsearch
 set ignorecase
 set smartcase
+set gdefault
+nnoremap <leader>h :noh<cr>
 
 "Make mouse usable for normal, insert, command-line and help modes
 "Turned off for visual mode to allow copy from the terminal window
 "in visual mode, instead of visually selecting in visual mode. 
-set mouse=nich
+set mouse=a
 
 "When wrapping lines, make sure lines are 78 characters long
 set tw=78
