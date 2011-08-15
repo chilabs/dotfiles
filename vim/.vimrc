@@ -23,6 +23,7 @@ set wildmode=list:longest
 "Remove the need to hit shift to do :w
 nnoremap ; :
 
+:imap jj <Esc>
 
 set showmode
 set showcmd
