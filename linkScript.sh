@@ -1,7 +1,3 @@
-#SSH
-rm ~/.ssh/config
-ln -s ~/dotfiles/ssh/config ~/.ssh/config
-
 #BASH
 rm ~/.profile
 rm ~/.bashrc
