@@ -2,11 +2,18 @@
 set nocp
 filetype plugin on
 
+
+
 if has('autocmd')
-   autocmd FileType cpp setlocal shiftwidth=2 tabstop=2
-   autocmd FileType python set omnifunc=pythoncomplete#Complete shiftwidth=2 tabstop=2
+   au BufWritePost *.py silent! !ctags -R &
+   au BufWritePost *.js silent! !ctags -R &
+   au BufWritePost *.java silent! !ctags -R &
+   autocmd FileType cpp setlocal shiftwidth=4 tabstop=4
+   autocmd FileType c setlocal shiftwidth=2 tabstop=2
+   autocmd FileType java setlocal shiftwidth=2 tabstop=2
+   autocmd FileType python set omnifunc=pythoncomplete#Complete shiftwidth=4 tabstop=4
    autocmd FileType javascript set omnifunc=javascriptcomplete#CompleteJS
-   autocmd FileType html set omnifunc=htmlcomplete#CompleteTags
+   autocmd FileType html set omnifunc=htmlcomplete#CompleteTags shiftwidth=2 tabstop=2
    autocmd FileType css set omnifunc=csscomplete#CompleteCSS
    autocmd FileType xml set omnifunc=xmlcomplete#CompleteTags
    autocmd FileType c set omnifunc=ccomplete#Complete
@@ -32,8 +39,8 @@ set showcmd
 let mapleader = ","
 
 "Tabs
-"set ts=4
-"set shiftwidth=4
+set ts=4
+set shiftwidth=4
 set expandtab
 set smarttab
 set smartindent

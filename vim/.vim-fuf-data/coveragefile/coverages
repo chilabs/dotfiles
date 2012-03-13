@@ -1,2 +1,0 @@
-{'name': 'c', 'patterns': ['./**']}
-{'name': 'h', 'patterns': ['~/**']}

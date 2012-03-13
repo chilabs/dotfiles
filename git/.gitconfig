@@ -15,3 +15,5 @@
 	status = auto
 [mergetool]
 	tool = vimdiff
+[branch]
+	autosetuprebase = always
