@@ -1,7 +1,11 @@
+"Use pathogen to modify runtime path and include all plugins under 
+"~/.vim/bundle directory
+call pathogen#infect()
+
 "File specific settings
 set nocp
 filetype plugin on
-
+filetype indent on
 
 
 if has('autocmd')
@@ -13,38 +17,55 @@ if has('autocmd')
    autocmd FileType java setlocal shiftwidth=2 tabstop=2
    autocmd FileType python set omnifunc=pythoncomplete#Complete shiftwidth=4 tabstop=4
    autocmd FileType javascript set omnifunc=javascriptcomplete#CompleteJS
-   autocmd FileType html set omnifunc=htmlcomplete#CompleteTags shiftwidth=2 tabstop=2
+   autocmd FileType html,xml set omnifunc=htmlcomplete#CompleteTags shiftwidth=2 tabstop=2 listchars-=:>.
    autocmd FileType css set omnifunc=csscomplete#CompleteCSS
    autocmd FileType xml set omnifunc=xmlcomplete#CompleteTags
    autocmd FileType c set omnifunc=ccomplete#Complete
+   "Want cursor highlighting applied in current window
+   autocmd WinEnter * setlocal cursorline cursorcolumn
+   autocmd WinLeave * setlocal nocursorline nocursorcolumn
    
    autocmd CursorMovedI * if pumvisible() == 0|pclose|endif 
    autocmd InsertLeave * if pumvisible() == 0|pclose|endif
 endif
+
+"Make visible tab characters, trailing whitespace and invisible spaces
+"visuall, also add # at tend of lines that extend off-screen
+set listchars=tab:>.,trail:.,extends:#,nbsp:.
 
 "Ignore File Types During Tabcomplete
 set wildignore=*.swp,*.bak,*.pyc,*.class,*.o
 set wildmenu
 set wildmode=list:longest
 
-"Remove the need to hit shift to do :w
+"Easier window navigation without pressing <C-w>
+map <C-h> <C-w>h
+map <C-j> <C-w>j
+map <C-k> <C-w>k
+map <C-l> <C-w>l
+
+"Remove the need to hit shift to do :w, map : to ;
 nnoremap ; :
 
-:imap jj <Esc>
-
+"Show the current mode and command being typed
 set showmode
 set showcmd
 
 "Set Leader Key to ,
 let mapleader = ","
 
+"No annoying backup files
+set nobackup
+set noswapfile
+
 "Tabs
 set ts=4
 set shiftwidth=4
 set expandtab
-set smarttab
+set smarttab                    "insert tabs on the start of a line according to shiftwidth and not tabstop
 set smartindent
 set autoindent
+set copyindent                  "copy previous indentation on autoindenting
 set backspace=indent,eol,start
 
 "Syntax highlighting
@@ -74,10 +95,23 @@ set tw=78
 set formatoptions=cq
 
 "Color theme
-colors wombat256
+if has('gui_running')
+    set background=dark
+    colorscheme solarized
+else
+    colorscheme wombat256
+endif
 
 "Toggle NerdTree
 map <F2> :NERDTreeToggle<CR>
+
+"Toggle TagList
+map <F3> :TlistToggle<CR>
+
+"Highlight current line and column
+:hi CursorLine cterm=NONE
+:hi CursorColumn cterm=NONE
+:nnoremap <Leader>c :set cursorline! cursorcolumn!<CR>
 
 "Map movement keys to move by visual line instead of by actual line
 nnoremap k gk
@@ -104,15 +138,15 @@ nnoremap <silent> sk     :FufFileWithCurrentBufferDir<CR>
 nnoremap <silent> sK     :FufFileWithFullCwd<CR>
 nnoremap <silent> s<C-k> :FufFile<CR>
 
-"Given the path './**' is registered to file coverage c, 
-"command 'slc' recursively searches the current directory
-nnoremap <silent> slc     :FufCoverageFileChange c<CR>
+
+"command 'sc' recursively searches the current directory by default can be
+"changed to other coverages
+nnoremap <silent> sc     :FufCoverageFile<CR>
 
 "Given the path '~/**' is registered to file coverage h, 
-"command 'slc' recursively searches the home directory
+"command 'slh' recursively searches the home directory
 nnoremap <silent> slh     :FufCoverageFileChange h<CR>
 nnoremap <silent> sl     :FufCoverageFileChange<CR>
-nnoremap <silent> sL     :FufCoverageFileChange<CR>
 nnoremap <silent> s<C-l> :FufCoverageFileRegister<CR>
 nnoremap <silent> sd     :FufDirWithCurrentBufferDir<CR>
 nnoremap <silent> sD     :FufDirWithFullCwd<CR>
