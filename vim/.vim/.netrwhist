@@ -1,7 +1,0 @@
-let g:netrw_dirhistmax  =10
-let g:netrw_dirhist_cnt =5
-let g:netrw_dirhist_1='/home/enoki/dotfiles/vim/.vim/autoload'
-let g:netrw_dirhist_2='/home/enoki/dotfiles/vim/.vim/doc'
-let g:netrw_dirhist_3='/home/enoki/Documents/4b/.git'
-let g:netrw_dirhist_4='/home/enoki/.gconf/apps/gnome-terminal'
-let g:netrw_dirhist_5='/home/enoki/.gconf/apps/gnome-terminal/profiles/Default'
