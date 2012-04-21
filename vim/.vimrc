@@ -93,6 +93,7 @@ set mouse=a
 "When wrapping lines, make sure lines are 78 characters long
 set tw=78
 set formatoptions=cq
+set nowrap
 
 "Color theme
 if has('gui_running')
