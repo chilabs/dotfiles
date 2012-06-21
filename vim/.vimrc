@@ -103,8 +103,9 @@ else
     colorscheme wombat256
 endif
 
-"Toggle NerdTree
+"NerdTree
 map <F2> :NERDTreeToggle<CR>
+nnoremap <leader>d :NERDTreeFind<CR>
 
 "Toggle TagList
 map <F3> :TlistToggle<CR>
