@@ -12,7 +12,9 @@ if has('autocmd')
    au BufWritePost *.py silent! !ctags -R &
    au BufWritePost *.js silent! !ctags -R &
    au BufWritePost *.java silent! !ctags -R &
+   au BufWritePost *.rb silent! !ctags -R &
    autocmd FileType cpp setlocal shiftwidth=4 tabstop=4
+   autocmd FileType ruby setlocal shiftwidth=2 tabstop=2
    autocmd FileType c setlocal shiftwidth=2 tabstop=2
    autocmd FileType java setlocal shiftwidth=2 tabstop=2
    autocmd FileType python set omnifunc=pythoncomplete#Complete shiftwidth=4 tabstop=4
@@ -73,7 +75,17 @@ syntax on
 set t_Co=256
 
 "Line numbers
-set number
+set relativenumber
+
+function! NumberToggle()
+    if(&relativenumber == 1)
+        set number
+    else
+        set relativenumber
+    endif
+endfunc
+
+nnoremap <C-n> :call NumberToggle()<cr>
 
 "Incremental search, highlight when searching and ignore case when searching
 "Also turns ON smartcase which turns on case sensitive searching when
@@ -108,7 +120,10 @@ map <F2> :NERDTreeToggle<CR>
 nnoremap <leader>d :NERDTreeFind<CR>
 
 "Toggle TagList
-map <F3> :TlistToggle<CR>
+map <F4> :TlistToggle<CR>
+
+"Toggle Paste Mode
+set pastetoggle=<F3>
 
 "Highlight current line and column
 :hi CursorLine cterm=NONE
