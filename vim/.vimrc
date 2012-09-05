@@ -7,7 +7,6 @@ set nocp
 filetype plugin on
 filetype indent on
 
-
 if has('autocmd')
    au BufWritePost *.py silent! !ctags -R &
    "au BufWritePost *.js silent! !ctags -R &
@@ -61,7 +60,7 @@ let mapleader = ","
 set nobackup
 set noswapfile
 
-"Tabs
+" Tabs
 set ts=4
 set shiftwidth=4
 set expandtab
@@ -71,9 +70,17 @@ set autoindent
 set copyindent                  "copy previous indentation on autoindenting
 set backspace=indent,eol,start
 
-"Syntax highlighting
+" Syntax highlighting
 syntax on
 set t_Co=256
+
+" Highlight trailing whitespace
+highlight ExtraWhitespace ctermbg=darkgreen guibg=darkgreen
+match ExtraWhitespace /\s\+$/
+autocmd BufWinEnter * match ExtraWhitespace /\s\+$/
+autocmd InsertEnter * match ExtraWhitespace /\s\+\%#\@<!$/
+autocmd InsertLeave * match ExtraWhitespace /\s\+$/
+autocmd BufWinLeave * call clearmatches()
 
 "Show line and column number
 set ruler
@@ -133,6 +140,19 @@ set pastetoggle=<F3>
 :hi CursorLine cterm=NONE
 :hi CursorColumn cterm=NONE
 :nnoremap <Leader>c :set cursorline! cursorcolumn!<CR>
+
+" Higlight 80 char line
+nmap <Leader>l :call ColorColumn()<CR>
+function! ColorColumn()
+    if empty(&colorcolumn)
+        :highlight ColorColumn ctermbg=fg guibg=fg
+        echo "colorcolumn=80"
+        setlocal colorcolumn=80
+    else
+        echo "colorcolumn off"
+        setlocal colorcolumn=
+    endif
+endfunction
 
 "Map movement keys to move by visual line instead of by actual line
 nnoremap k gk
