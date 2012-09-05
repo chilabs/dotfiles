@@ -10,10 +10,11 @@ filetype indent on
 
 if has('autocmd')
    au BufWritePost *.py silent! !ctags -R &
-   au BufWritePost *.js silent! !ctags -R &
+   "au BufWritePost *.js silent! !ctags -R &
    au BufWritePost *.java silent! !ctags -R &
    au BufWritePost *.rb silent! !ctags -R &
-   autocmd FileType cpp setlocal shiftwidth=4 tabstop=4
+   autocmd FileType php setlocal shiftwidth=2 tabstop=2
+   autocmd FileType cpp setlocal shiftwidth=2 tabstop=2
    autocmd FileType ruby setlocal shiftwidth=2 tabstop=2
    autocmd FileType c setlocal shiftwidth=2 tabstop=2
    autocmd FileType java setlocal shiftwidth=2 tabstop=2
@@ -73,6 +74,9 @@ set backspace=indent,eol,start
 "Syntax highlighting
 syntax on
 set t_Co=256
+
+"Show line and column number
+set ruler
 
 "Line numbers
 set relativenumber
