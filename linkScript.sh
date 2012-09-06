@@ -21,3 +21,7 @@ ln -s ~/dotfiles/vim/.vimfuzzyfinder ~/.vimfuzzyfinder
 #GIT
 rm ~/.gitconfig
 ln -s ~/dotfiles/git/.gitconfig ~/.gitconfig
+
+#Tmux
+rm ~/.tmux.conf
+ln -s ~/dotfiles/tmux/.tmux.conf ~/.tmux.conf
