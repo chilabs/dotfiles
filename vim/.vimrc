@@ -124,6 +124,8 @@ if has('gui_running')
     colorscheme solarized
 else
     colorscheme wombat256
+    "Right colors in tmux
+    set term=screen-256color
 endif
 
 "NerdTree
