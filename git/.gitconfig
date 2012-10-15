@@ -1,6 +1,6 @@
 [user]
 	name = Peter Xie
-	email = x4xie@engmail.uwaterloo.ca
+	email = peterx@fb.com
 [core]
 	editor = vim
 [alias]
@@ -17,3 +17,6 @@
 	tool = vimdiff
 [branch]
 	autosetuprebase = always
+
+[commit]
+    template = ~/devtools/git-commit-template
