@@ -8,8 +8,9 @@ filetype plugin on
 filetype indent on
 
 if has('autocmd')
+   au BufNewFile,BufRead *.less set filetype=less
    au BufWritePost *.py silent! !ctags -R &
-   "au BufWritePost *.js silent! !ctags -R &
+   au BufWritePost *.js silent! !ctags -R 2> /dev/null &
    au BufWritePost *.java silent! !ctags -R &
    au BufWritePost *.rb silent! !ctags -R &
    autocmd FileType php setlocal shiftwidth=2 tabstop=2
@@ -18,9 +19,10 @@ if has('autocmd')
    autocmd FileType c setlocal shiftwidth=2 tabstop=2
    autocmd FileType java setlocal shiftwidth=2 tabstop=2
    autocmd FileType python set omnifunc=pythoncomplete#Complete shiftwidth=4 tabstop=4
-   autocmd FileType javascript set omnifunc=javascriptcomplete#CompleteJS
-   autocmd FileType html,xml set omnifunc=htmlcomplete#CompleteTags shiftwidth=2 tabstop=2 listchars-=:>.
-   autocmd FileType css set omnifunc=csscomplete#CompleteCSS
+   autocmd FileType javascript set omnifunc=javascriptcomplete#CompleteJS shiftwidth=4 tabstop=4 softtabstop=4 expandtab
+   autocmd FileType html,xml set shiftwidth=4 tabstop=4 softtabstop=4 expandtab
+   autocmd FileType css set shiftwidth=4 tabstop=4 softtabstop=4 expandtab
+   autocmd FileType less set shiftwidth=4 tabstop=4 softtabstop=4 expandtab
    autocmd FileType xml set omnifunc=xmlcomplete#CompleteTags
    autocmd FileType c set omnifunc=ccomplete#Complete
    "Want cursor highlighting applied in current window
@@ -30,6 +32,9 @@ if has('autocmd')
    autocmd CursorMovedI * if pumvisible() == 0|pclose|endif 
    autocmd InsertLeave * if pumvisible() == 0|pclose|endif
 endif
+
+"Default cinkeys without colon
+setlocal cinkeys=0{,0},0),0#,!^F,o,O,e
 
 "Make visible tab characters, trailing whitespace and invisible spaces
 "visuall, also add # at tend of lines that extend off-screen
@@ -46,6 +51,9 @@ map <C-h> <C-w>h
 map <C-j> <C-w>j
 map <C-k> <C-w>k
 map <C-l> <C-w>l
+
+"Map Command-k to no-op
+map <D-k> <Nop>
 
 "Remove the need to hit shift to do :w, map : to ;
 nnoremap ; :
@@ -79,7 +87,8 @@ set t_Co=256
 set ruler
 
 "Line numbers
-set relativenumber
+"set relativenumber
+set number 
 
 function! NumberToggle()
     if(&relativenumber == 1)
@@ -89,7 +98,7 @@ function! NumberToggle()
     endif
 endfunc
 
-nnoremap <C-n> :call NumberToggle()<cr>
+"nnoremap <C-n> :call NumberToggle()<cr>
 
 "Incremental search, highlight when searching and ignore case when searching
 "Also turns ON smartcase which turns on case sensitive searching when
@@ -124,6 +133,10 @@ endif
 "NerdTree
 map <F2> :NERDTreeToggle<CR>
 nnoremap <leader>d :NERDTreeFind<CR>
+
+"Tagbar
+nmap <F8> :TagbarToggle<CR>
+let g:tagbar_ctags_bin = '/usr/bin/ctags'
 
 "Toggle TagList
 map <F4> :TlistToggle<CR>
