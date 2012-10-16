@@ -33,6 +33,7 @@ endif
 
 "Make visible tab characters, trailing whitespace and invisible spaces
 "visuall, also add # at tend of lines that extend off-screen
+set list
 set listchars=tab:>.,trail:.,extends:#,nbsp:.
 
 "Ignore File Types During Tabcomplete
@@ -73,14 +74,6 @@ set backspace=indent,eol,start
 " Syntax highlighting
 syntax on
 set t_Co=256
-
-" Highlight trailing whitespace
-highlight ExtraWhitespace ctermbg=darkgreen guibg=darkgreen
-match ExtraWhitespace /\s\+$/
-autocmd BufWinEnter * match ExtraWhitespace /\s\+$/
-autocmd InsertEnter * match ExtraWhitespace /\s\+\%#\@<!$/
-autocmd InsertLeave * match ExtraWhitespace /\s\+$/
-autocmd BufWinLeave * call clearmatches()
 
 "Show line and column number
 set ruler
