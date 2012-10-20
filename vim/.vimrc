@@ -28,7 +28,7 @@ if has('autocmd')
    "Want cursor highlighting applied in current window
    autocmd WinEnter * setlocal cursorline cursorcolumn
    autocmd WinLeave * setlocal nocursorline nocursorcolumn
-   
+
    autocmd CursorMovedI * if pumvisible() == 0|pclose|endif 
    autocmd InsertLeave * if pumvisible() == 0|pclose|endif
 endif
@@ -98,7 +98,7 @@ function! NumberToggle()
     endif
 endfunc
 
-"nnoremap <C-n> :call NumberToggle()<cr>
+nnoremap <C-n> :call NumberToggle()<cr>
 
 "Incremental search, highlight when searching and ignore case when searching
 "Also turns ON smartcase which turns on case sensitive searching when
@@ -129,6 +129,9 @@ else
     "Right colors in tmux
     set term=screen-256color
 endif
+
+"TagBar
+nmap <F8> :TagbarToggle <CR>
 
 "NerdTree
 map <F2> :NERDTreeToggle<CR>
