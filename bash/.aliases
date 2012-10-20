@@ -41,3 +41,6 @@ alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo
 
 #Git
 alias g='git'
+
+#Tmux
+alias t='tmux'

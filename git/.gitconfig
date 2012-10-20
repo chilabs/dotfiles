@@ -13,10 +13,9 @@
 	diff = auto
 	interactive = auto
 	status = auto
+[difftool]
+    tool = vimdiff
 [mergetool]
 	tool = vimdiff
 [branch]
 	autosetuprebase = always
-
-[commit]
-    template = ~/devtools/git-commit-template
