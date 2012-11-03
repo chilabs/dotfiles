@@ -87,8 +87,11 @@ set t_Co=256
 set ruler
 
 "Line numbers
-"set relativenumber
-set number 
+if (version >= 703)
+    set relativenumber
+else
+    set number
+endif
 
 function! NumberToggle()
     if(&relativenumber == 1)
@@ -98,7 +101,9 @@ function! NumberToggle()
     endif
 endfunc
 
-nnoremap <C-n> :call NumberToggle()<cr>
+if (version >= 703)
+    nnoremap <C-n> :call NumberToggle()<cr>
+endif
 
 "Incremental search, highlight when searching and ignore case when searching
 "Also turns ON smartcase which turns on case sensitive searching when
