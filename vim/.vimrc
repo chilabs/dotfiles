@@ -115,8 +115,11 @@ nnoremap <leader>h :noh<cr>
 "in visual mode, instead of visually selecting in visual mode. 
 set mouse=a
 
-"Search with ,a so no need to type :Ack
+"Search visually selected txt with <leader>a, overrites data in std register
 vnoremap <leader>a y:Ack<Space><C-r>"
+
+"Start ack with <leader>a to begin searching for text
+nnoremap <leader>a :Ack<Space>
 
 "When wrapping lines, make sure lines are 78 characters long
 set tw=78
