@@ -18,6 +18,11 @@ ln -s ~/dotfiles/vim/.vim ~/.vim
 ln -s ~/dotfiles/vim/.vim-fuf-data ~/.vim-fuf-data
 ln -s ~/dotfiles/vim/.vimfuzzyfinder ~/.vimfuzzyfinder
 
+#ACK
+rm ~/.ackrc
+
+ln -s ~/dotfiles/ack/ackrc ~/.ackrc
+
 #GIT
 rm ~/.gitconfig
 ln -s ~/dotfiles/git/.gitconfig ~/.gitconfig

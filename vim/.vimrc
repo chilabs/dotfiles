@@ -29,7 +29,7 @@ if has('autocmd')
    autocmd WinEnter * setlocal cursorline cursorcolumn
    autocmd WinLeave * setlocal nocursorline nocursorcolumn
 
-   autocmd CursorMovedI * if pumvisible() == 0|pclose|endif 
+   autocmd CursorMovedI * if pumvisible() == 0|pclose|endif
    autocmd InsertLeave * if pumvisible() == 0|pclose|endif
 endif
 
@@ -88,7 +88,7 @@ set ruler
 
 "Line numbers
 "set relativenumber
-set number 
+set number
 
 function! NumberToggle()
     if(&relativenumber == 1)
@@ -114,6 +114,9 @@ nnoremap <leader>h :noh<cr>
 "Turned off for visual mode to allow copy from the terminal window
 "in visual mode, instead of visually selecting in visual mode. 
 set mouse=a
+
+"Search with ,a so no need to type :Ack
+vnoremap <leader>a y:Ack<Space><C-r>"
 
 "When wrapping lines, make sure lines are 78 characters long
 set tw=78
