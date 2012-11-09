@@ -9,6 +9,7 @@ filetype indent on
 
 if has('autocmd')
    au BufNewFile,BufRead *.less set filetype=less
+   "au BufNewFile,BufRead *.erb set filetype=erb
    au BufWritePost *.py silent! !ctags -R &
    au BufWritePost *.js silent! !ctags -R 2> /dev/null &
    au BufWritePost *.java silent! !ctags -R &
@@ -23,6 +24,7 @@ if has('autocmd')
    autocmd FileType html,xml set shiftwidth=4 tabstop=4 softtabstop=4 expandtab
    autocmd FileType css set shiftwidth=4 tabstop=4 softtabstop=4 expandtab
    autocmd FileType less set shiftwidth=4 tabstop=4 softtabstop=4 expandtab
+   "autocmd FileType erb set shiftwidth=2 tabstop=2 softtabstop=2 expandtab
    autocmd FileType xml set omnifunc=xmlcomplete#CompleteTags
    autocmd FileType c set omnifunc=ccomplete#Complete
    "Want cursor highlighting applied in current window
@@ -87,8 +89,11 @@ set t_Co=256
 set ruler
 
 "Line numbers
-"set relativenumber
-set number
+if (version >= 703)
+    set relativenumber
+else
+    set number
+endif
 
 function! NumberToggle()
     if(&relativenumber == 1)
@@ -98,7 +103,9 @@ function! NumberToggle()
     endif
 endfunc
 
-nnoremap <C-n> :call NumberToggle()<cr>
+if (version >= 703)
+    nnoremap <C-n> :call NumberToggle()<cr>
+endif
 
 "Incremental search, highlight when searching and ignore case when searching
 "Also turns ON smartcase which turns on case sensitive searching when
