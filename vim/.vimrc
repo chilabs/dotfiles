@@ -122,7 +122,7 @@ nnoremap <leader>h :noh<cr>
 "in visual mode, instead of visually selecting in visual mode. 
 set mouse=a
 
-"Search visually selected txt with <leader>a, overrites data in std register
+"Search visually selected txt with <leader>a, overwrites data in std register
 vnoremap <leader>a y:Ack<Space><C-r>"
 
 "Start ack with <leader>a to begin searching for text
@@ -142,6 +142,9 @@ else
     "Right colors in tmux
     set term=screen-256color
 endif
+
+"Toggle syntastic ON/OFF
+nnoremap <leader>s :SyntasticToggleMode<CR>
 
 "TagBar
 nmap <F8> :TagbarToggle <CR>
