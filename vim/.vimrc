@@ -20,9 +20,9 @@ if has('autocmd')
    autocmd FileType c setlocal shiftwidth=2 tabstop=2
    autocmd FileType java setlocal shiftwidth=2 tabstop=2
    autocmd FileType python set omnifunc=pythoncomplete#Complete shiftwidth=4 tabstop=4
-   autocmd FileType javascript set omnifunc=javascriptcomplete#CompleteJS shiftwidth=4 tabstop=4 softtabstop=4 expandtab
-   autocmd FileType html,xml set shiftwidth=4 tabstop=4 softtabstop=4 expandtab
-   autocmd FileType css set shiftwidth=4 tabstop=4 softtabstop=4 expandtab
+   autocmd FileType javascript set omnifunc=javascriptcomplete#CompleteJS shiftwidth=2 tabstop=2 softtabstop=2 expandtab
+   autocmd FileType html,xml set shiftwidth=2 tabstop=2 softtabstop=2 expandtab
+   autocmd FileType css set shiftwidth=2 tabstop=2 softtabstop=2 expandtab
    autocmd FileType less set shiftwidth=4 tabstop=4 softtabstop=4 expandtab
    "autocmd FileType erb set shiftwidth=2 tabstop=2 softtabstop=2 expandtab
    autocmd FileType xml set omnifunc=xmlcomplete#CompleteTags
