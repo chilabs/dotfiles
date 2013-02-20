@@ -8,6 +8,8 @@
 	ci = commit
 	co = checkout
 	br = branch
+	rb = rb
+	pl = pull
 [color]
 	branch = auto
 	diff = auto
