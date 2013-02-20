@@ -11,18 +11,18 @@ if has('autocmd')
    au BufNewFile,BufRead *.less set filetype=less
    "au BufNewFile,BufRead *.erb set filetype=erb
    au BufWritePost *.py silent! !ctags -R &
-   au BufWritePost *.js silent! !ctags -R 2> /dev/null &
+   au BufWritePost *.js silent! !ctags -R &> /dev/null &
    au BufWritePost *.java silent! !ctags -R &
    au BufWritePost *.rb silent! !ctags -R &
    autocmd FileType php setlocal shiftwidth=2 tabstop=2
    autocmd FileType cpp setlocal shiftwidth=2 tabstop=2
    autocmd FileType ruby setlocal shiftwidth=2 tabstop=2
    autocmd FileType c setlocal shiftwidth=2 tabstop=2
-   autocmd FileType java setlocal shiftwidth=2 tabstop=2
+   autocmd FileType java setlocal shiftwidth=4 tabstop=4
    autocmd FileType python set omnifunc=pythoncomplete#Complete shiftwidth=4 tabstop=4
-   autocmd FileType javascript set omnifunc=javascriptcomplete#CompleteJS shiftwidth=4 tabstop=4 softtabstop=4 expandtab
-   autocmd FileType html,xml set shiftwidth=4 tabstop=4 softtabstop=4 expandtab
-   autocmd FileType css set shiftwidth=4 tabstop=4 softtabstop=4 expandtab
+   autocmd FileType javascript set omnifunc=javascriptcomplete#CompleteJS shiftwidth=2 tabstop=2 softtabstop=2 expandtab
+   autocmd FileType html,xml set shiftwidth=2 tabstop=2 softtabstop=2 expandtab
+   autocmd FileType css set shiftwidth=2 tabstop=2 softtabstop=2 expandtab
    autocmd FileType less set shiftwidth=4 tabstop=4 softtabstop=4 expandtab
    "autocmd FileType erb set shiftwidth=2 tabstop=2 softtabstop=2 expandtab
    autocmd FileType xml set omnifunc=xmlcomplete#CompleteTags
@@ -65,15 +65,15 @@ set showmode
 set showcmd
 
 "Set Leader Key to ,
-let mapleader = ","
+let mapleader = " "
 
 "No annoying backup files
 set nobackup
 set noswapfile
 
 " Tabs
-set ts=4
-set shiftwidth=4
+set ts=2
+set shiftwidth=2
 set expandtab
 set smarttab                    "insert tabs on the start of a line according to shiftwidth and not tabstop
 set smartindent
@@ -202,6 +202,8 @@ nnoremap <silent> sk     :FufFileWithCurrentBufferDir<CR>
 nnoremap <silent> sK     :FufFileWithFullCwd<CR>
 nnoremap <silent> s<C-k> :FufFile<CR>
 
+"EasyMotion keys
+let g:EasyMotion_leader_key = ','
 
 "command 'sc' recursively searches the current directory by default can be
 "changed to other coverages
