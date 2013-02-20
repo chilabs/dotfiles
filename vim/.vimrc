@@ -89,14 +89,10 @@ set t_Co=256
 set ruler
 
 "Line numbers
-if (version >= 703)
-    set relativenumber
-else
-    set number
-endif
+set number
 
 function! NumberToggle()
-    if(&relativenumber == 1)
+    if (&relativenumber == 1)
         set number
     else
         set relativenumber
