@@ -1,11 +1,37 @@
-"Use pathogen to modify runtime path and include all plugins under 
+"Use pathogen to modify runtime path and include all plugins under
 "~/.vim/bundle directory
-call pathogen#infect()
+"call pathogen#infect()
 
 "File specific settings
 set nocp
-filetype plugin on
-filetype indent on
+
+filetype off
+set rtp+=~/.vim/bundle/vundle/
+call vundle#rc()
+
+" let Vundle manage Vundle
+" required!
+Bundle 'gmarik/vundle'
+
+" original repos on github
+Bundle 'Lokaltog/vim-easymotion'
+Bundle 'altercation/vim-colors-solarized'
+Bundle 'chriskempson/vim-tomorrow-theme'
+Bundle 'ervandew/supertab'
+Bundle 'kien/ctrlp.vim'
+Bundle 'mileszs/ack.vim'
+Bundle 'tpope/vim-surround'
+Bundle 'scrooloose/syntastic'
+Bundle 'scrooloose/nerdtree'
+Bundle 'scrooloose/nerdcommenter'
+
+" vim-scripts repos
+Bundle 'Colour-Sampler-Pack'
+Bundle 'FuzzyFinder'
+Bundle 'L9'
+Bundle 'ScrollColors'
+
+filetype plugin indent on
 
 if has('autocmd')
    au BufNewFile,BufRead *.less set filetype=less
@@ -134,7 +160,7 @@ if has('gui_running')
     set background=dark
     colorscheme solarized
 else
-    colorscheme wombat256
+    colorscheme Tomorrow-Night-Bright
     "Right colors in tmux
     set term=screen-256color
 endif
@@ -142,19 +168,14 @@ endif
 "Toggle syntastic ON/OFF
 nnoremap <leader>s :SyntasticToggleMode<CR>
 
-"TagBar
-nmap <F8> :TagbarToggle <CR>
-
 "NerdTree
 map <F2> :NERDTreeToggle<CR>
 nnoremap <leader>d :NERDTreeFind<CR>
 
-"Tagbar
-nmap <F8> :TagbarToggle<CR>
-let g:tagbar_ctags_bin = '/usr/bin/ctags'
+"CtrlP
+let g:ctrlp_map = '<c-p>'
+let g:ctrlp_cmd = 'CtrlP'
 
-"Toggle TagList
-map <F4> :TlistToggle<CR>
 
 "Toggle Paste Mode
 set pastetoggle=<F3>
