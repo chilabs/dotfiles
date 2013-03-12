@@ -14,9 +14,12 @@ call vundle#rc()
 Bundle 'gmarik/vundle'
 
 " original repos on github
+Bundle 'godlygeek/csapprox'
 Bundle 'Lokaltog/vim-easymotion'
 Bundle 'altercation/vim-colors-solarized'
 Bundle 'chriskempson/vim-tomorrow-theme'
+Bundle 'Colour-Sampler-Pack'
+"Bundle 'cpp.vim--Skvirsky'
 Bundle 'ervandew/supertab'
 Bundle 'kien/ctrlp.vim'
 Bundle 'mileszs/ack.vim'
@@ -26,7 +29,6 @@ Bundle 'scrooloose/nerdtree'
 Bundle 'scrooloose/nerdcommenter'
 
 " vim-scripts repos
-Bundle 'Colour-Sampler-Pack'
 Bundle 'FuzzyFinder'
 Bundle 'L9'
 Bundle 'ScrollColors'
@@ -72,7 +74,7 @@ set listchars=tab:>.,trail:.,extends:#,nbsp:.
 "Ignore File Types During Tabcomplete
 set wildignore=*.swp,*.bak,*.pyc,*.class,*.o
 set wildmenu
-set wildmode=list:longest
+set wildmode=longest,list:longest
 
 "Easier window navigation without pressing <C-w>
 map <C-h> <C-w>h
@@ -106,6 +108,17 @@ set smartindent
 set autoindent
 set copyindent                  "copy previous indentation on autoindenting
 set backspace=indent,eol,start
+
+"Color theme
+if has('gui_running')
+    set background=dark
+    colorscheme solarized
+else
+    "colorscheme Tomorrow-Night-Bright
+    colorscheme wombat
+    set term=screen-256color
+    "Right colors in tmux
+endif
 
 " Syntax highlighting
 syntax on
@@ -155,16 +168,6 @@ set tw=78
 set formatoptions=cq
 set nowrap
 
-"Color theme
-if has('gui_running')
-    set background=dark
-    colorscheme solarized
-else
-    colorscheme Tomorrow-Night-Bright
-    "Right colors in tmux
-    set term=screen-256color
-endif
-
 "Toggle syntastic ON/OFF
 nnoremap <leader>s :SyntasticToggleMode<CR>
 
@@ -175,7 +178,6 @@ nnoremap <leader>d :NERDTreeFind<CR>
 "CtrlP
 let g:ctrlp_map = '<c-p>'
 let g:ctrlp_cmd = 'CtrlP'
-
 
 "Toggle Paste Mode
 set pastetoggle=<F3>
