@@ -4,34 +4,36 @@
 
 "File specific settings
 set nocp
-
 filetype off
-set rtp+=~/.vim/bundle/vundle/
-call vundle#rc()
+
+set rtp+=~/.vim/bundle/Vundle.vim
+call vundle#begin()
 
 " let Vundle manage Vundle
 " required!
-Bundle 'gmarik/vundle'
+Plugin 'VundleVim/Vundle.vim'
 
 " original repos on github
-Bundle 'godlygeek/csapprox'
-Bundle 'Lokaltog/vim-easymotion'
-Bundle 'altercation/vim-colors-solarized'
-Bundle 'chriskempson/vim-tomorrow-theme'
-Bundle 'Colour-Sampler-Pack'
+Plugin 'godlygeek/csapprox'
+Plugin 'Lokaltog/vim-easymotion'
+Plugin 'altercation/vim-colors-solarized'
+Plugin 'chriskempson/vim-tomorrow-theme'
+Plugin 'Colour-Sampler-Pack'
 "Bundle 'cpp.vim--Skvirsky'
-Bundle 'ervandew/supertab'
-Bundle 'kien/ctrlp.vim'
-Bundle 'mileszs/ack.vim'
-Bundle 'tpope/vim-surround'
-Bundle 'scrooloose/syntastic'
-Bundle 'scrooloose/nerdtree'
-Bundle 'scrooloose/nerdcommenter'
+Plugin 'ervandew/supertab'
+Plugin 'kien/ctrlp.vim'
+Plugin 'mileszs/ack.vim'
+Plugin 'tpope/vim-surround'
+Plugin 'scrooloose/syntastic'
+Plugin 'scrooloose/nerdtree'
+Plugin 'scrooloose/nerdcommenter'
 
 " vim-scripts repos
-Bundle 'FuzzyFinder'
-Bundle 'L9'
-Bundle 'ScrollColors'
+Plugin 'FuzzyFinder'
+Plugin 'L9'
+Plugin 'ScrollColors'
+
+call vundle#end()
 
 filetype plugin indent on
 

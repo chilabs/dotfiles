@@ -1,6 +1,6 @@
 "============================================================================
 "File:        zsh.vim
-"Description: Syntax checking plugin for syntastic.vim
+"Description: Syntax checking plugin for syntastic
 "Maintainer:  Martin Grenfell <martin.grenfell at gmail dot com>
 "License:     This program is free software. It comes without any warranty,
 "             to the extent permitted by applicable law. You can redistribute
@@ -10,21 +10,29 @@
 "
 "============================================================================
 
-if exists("g:loaded_syntastic_zsh_zsh_checker")
+if exists('g:loaded_syntastic_zsh_zsh_checker')
     finish
 endif
-let g:loaded_syntastic_zsh_zsh_checker=1
+let g:loaded_syntastic_zsh_zsh_checker = 1
 
-function! SyntaxCheckers_zsh_zsh_IsAvailable()
-    return executable("zsh")
-endfunction
+let s:save_cpo = &cpo
+set cpo&vim
 
-function! SyntaxCheckers_zsh_zsh_GetLocList()
-    let makeprg = syntastic#makeprg#build({ 'exe': 'zsh', 'args': '-n' })
+function! SyntaxCheckers_zsh_zsh_GetLocList() dict
+    let makeprg = self.makeprgBuild({ 'args_after': '-n' })
+
     let errorformat = '%f:%l: %m'
-    return SyntasticMake({ 'makeprg': makeprg, 'errorformat': errorformat})
+
+    return SyntasticMake({
+        \ 'makeprg': makeprg,
+        \ 'errorformat': errorformat})
 endfunction
 
 call g:SyntasticRegistry.CreateAndRegisterChecker({
     \ 'filetype': 'zsh',
     \ 'name': 'zsh'})
+
+let &cpo = s:save_cpo
+unlet s:save_cpo
+
+" vim: set sw=4 sts=4 et fdm=marker:

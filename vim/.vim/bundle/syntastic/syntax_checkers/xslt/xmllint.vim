@@ -1,6 +1,6 @@
 "============================================================================
 "File:        xslt.vim
-"Description: Syntax checking plugin for syntastic.vim
+"Description: Syntax checking plugin for syntastic
 "Maintainer:  Sebastian Kusnier <sebastian at kusnier dot net>
 "License:     This program is free software. It comes without any warranty,
 "             to the extent permitted by applicable law. You can redistribute
@@ -9,34 +9,15 @@
 "             See http://sam.zoy.org/wtfpl/COPYING for more details.
 "
 "============================================================================
-if exists("g:loaded_syntastic_xslt_xmllint_checker")
+
+if exists('g:loaded_syntastic_xslt_xmllint_checker')
     finish
 endif
-let g:loaded_syntastic_xslt_xmllint_checker=1
-
-function! SyntaxCheckers_xslt_xmllint_IsAvailable()
-    return executable("xmllint")
-endfunction
-
-function! SyntaxCheckers_xslt_xmllint_GetLocList()
-    let makeprg = syntastic#makeprg#build({
-                \ 'exe': 'xmllint',
-                \ 'args': '--xinclude --noout --postvalid' })
-    let errorformat='%E%f:%l:\ error\ :\ %m,
-        \%-G%f:%l:\ validity\ error\ :\ Validation\ failed:\ no\ DTD\ found\ %m,
-        \%W%f:%l:\ warning\ :\ %m,
-        \%W%f:%l:\ validity\ warning\ :\ %m,
-        \%E%f:%l:\ validity\ error\ :\ %m,
-        \%E%f:%l:\ parser\ error\ :\ %m,
-        \%E%f:%l:\ namespace\ error\ :\ %m,
-        \%E%f:%l:\ %m,
-        \%-Z%p^,
-        \%-G%.%#'
-    let loclist = SyntasticMake({ 'makeprg': makeprg, 'errorformat': errorformat })
-
-    return loclist
-endfunction
+let g:loaded_syntastic_xslt_xmllint_checker = 1
 
 call g:SyntasticRegistry.CreateAndRegisterChecker({
     \ 'filetype': 'xslt',
-    \ 'name': 'xmllint'})
+    \ 'name': 'xmllint',
+    \ 'redirect': 'xml/xmllint'})
+
+" vim: set sw=4 sts=4 et fdm=marker:

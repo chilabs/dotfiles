@@ -1,6 +1,6 @@
 "============================================================================
 "File:        tex.vim
-"Description: Syntax checking plugin for syntastic.vim
+"Description: Syntax checking plugin for syntastic
 "Maintainer:  Martin Grenfell <martin.grenfell at gmail dot com>
 "License:     This program is free software. It comes without any warranty,
 "             to the extent permitted by applicable law. You can redistribute
@@ -10,21 +10,31 @@
 "
 "============================================================================
 
-if exists("g:loaded_syntastic_tex_lacheck_checker")
+if exists('g:loaded_syntastic_tex_lacheck_checker')
     finish
 endif
-let g:loaded_syntastic_tex_lacheck_checker=1
+let g:loaded_syntastic_tex_lacheck_checker = 1
 
-function! SyntaxCheckers_tex_lacheck_IsAvailable()
-    return executable("lacheck")
-endfunction
+let s:save_cpo = &cpo
+set cpo&vim
 
-function! SyntaxCheckers_tex_lacheck_GetLocList()
-    let makeprg = syntastic#makeprg#build({ 'exe': 'lacheck' })
-    let errorformat =  '%-G** %f:,%E"%f"\, line %l: %m'
-    return SyntasticMake({ 'makeprg': makeprg, 'errorformat': errorformat })
+function! SyntaxCheckers_tex_lacheck_GetLocList() dict
+    let makeprg = self.makeprgBuild({})
+
+    let errorformat =
+        \ '%-G** %f:,' .
+        \ '%E"%f"\, line %l: %m'
+
+    return SyntasticMake({
+        \ 'makeprg': makeprg,
+        \ 'errorformat': errorformat })
 endfunction
 
 call g:SyntasticRegistry.CreateAndRegisterChecker({
     \ 'filetype': 'tex',
     \ 'name': 'lacheck'})
+
+let &cpo = s:save_cpo
+unlet s:save_cpo
+
+" vim: set sw=4 sts=4 et fdm=marker:

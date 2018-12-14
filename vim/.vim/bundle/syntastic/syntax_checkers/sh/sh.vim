@@ -1,6 +1,6 @@
 "============================================================================
 "File:        sh.vim
-"Description: Syntax checking plugin for syntastic.vim
+"Description: Syntax checking plugin for syntastic
 "Maintainer:  Gregor Uhlenheuer <kongo2002 at gmail dot com>
 "License:     This program is free software. It comes without any warranty,
 "             to the extent permitted by applicable law. You can redistribute
@@ -10,65 +10,86 @@
 "
 "============================================================================
 
-if exists("g:loaded_syntastic_sh_sh_checker")
+if exists('g:loaded_syntastic_sh_sh_checker')
     finish
 endif
-let g:loaded_syntastic_sh_sh_checker=1
+let g:loaded_syntastic_sh_sh_checker = 1
 
-function! s:GetShell()
-    if !exists('b:shell') || b:shell == ""
-        let b:shell = ''
-        let shebang = getbufline(bufnr('%'), 1)[0]
-        if len(shebang) > 0
-            if match(shebang, 'bash') >= 0
-                let b:shell = 'bash'
-            elseif match(shebang, 'zsh') >= 0
-                let b:shell = 'zsh'
-            elseif match(shebang, 'sh') >= 0
-                let b:shell = 'sh'
-            endif
-        endif
-    endif
-    return b:shell
-endfunction
+let s:save_cpo = &cpo
+set cpo&vim
 
-function! s:ForwardToZshChecker()
-    let registry = g:SyntasticRegistry.Instance()
-    if registry.checkable('zsh')
-        return SyntaxCheckers_zsh_zsh_GetLocList()
-    else
-        return []
-    endif
+function! SyntaxCheckers_sh_sh_IsAvailable() dict " {{{1
+    let buf = bufnr('')
+    call self.log('shell =', s:GetShell(buf))
+    return s:IsShellValid(buf)
+endfunction " }}}1
 
-endfunction
-
-
-function! s:IsShellValid()
-    return len(s:GetShell()) > 0 && executable(s:GetShell())
-endfunction
-
-
-function! SyntaxCheckers_sh_sh_IsAvailable()
-    return s:IsShellValid()
-endfunction
-
-function! SyntaxCheckers_sh_sh_GetLocList()
-    if s:GetShell() == 'zsh'
+function! SyntaxCheckers_sh_sh_GetLocList() dict " {{{1
+    let buf = bufnr('')
+    if s:GetShell(buf) ==# 'zsh'
         return s:ForwardToZshChecker()
     endif
 
-    if !s:IsShellValid()
+    if !s:IsShellValid(buf)
         return []
     endif
 
-    let makeprg = syntastic#makeprg#build({
-                \ 'exe': s:GetShell(),
-                \ 'args': '-n' })
+    let makeprg = self.makeprgBuild({
+        \ 'exe': s:GetShell(buf),
+        \ 'args_after': '-n' })
 
     let errorformat = '%f: line %l: %m'
-    return SyntasticMake({ 'makeprg': makeprg, 'errorformat': errorformat})
-endfunction
+
+    return SyntasticMake({
+        \ 'makeprg': makeprg,
+        \ 'errorformat': errorformat })
+endfunction " }}}1
+
+" Utilities {{{1
+
+function! s:GetShell(buf) " {{{2
+    let shell = syntastic#util#getbufvar(a:buf, 'shell')
+    if shell ==# ''
+        let shebang = syntastic#util#parseShebang(a:buf)['exe']
+        if shebang !=# ''
+            if shebang[-strlen('bash'):-1] ==# 'bash'
+                let shell = 'bash'
+            elseif shebang[-strlen('zsh'):-1] ==# 'zsh'
+                let shell = 'zsh'
+            elseif shebang[-strlen('sh'):-1] ==# 'sh'
+                let shell = 'sh'
+            endif
+        endif
+        " try to use env variable in case no shebang could be found
+        if shell ==# ''
+            let shell = fnamemodify($SHELL, ':t')
+        endif
+    endif
+    return shell
+endfunction " }}}2
+
+function! s:IsShellValid(buf) " {{{2
+    let shell = s:GetShell(a:buf)
+    return shell !=# '' && executable(shell)
+endfunction " }}}2
+
+function! s:ForwardToZshChecker() " {{{2
+    let registry = g:SyntasticRegistry.Instance()
+    let zsh_checkers = registry.getCheckersAvailable('zsh', ['zsh'])
+    if !empty(zsh_checkers)
+        return zsh_checkers[0].getLocListRaw()
+    else
+        return []
+    endif
+endfunction " }}}2
+
+" }}}1
 
 call g:SyntasticRegistry.CreateAndRegisterChecker({
     \ 'filetype': 'sh',
-    \ 'name': 'sh'})
+    \ 'name': 'sh' })
+
+let &cpo = s:save_cpo
+unlet s:save_cpo
+
+" vim: set sw=4 sts=4 et fdm=marker:

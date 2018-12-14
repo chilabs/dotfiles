@@ -1,11 +1,11 @@
 "==============================================================================
 "       FileName: applescript.vim
-"           Desc: Syntax checking plugin for syntastic.vim
+"           Desc: Syntax checking plugin for syntastic
 "         Author: Zhao Cai
 "          Email: caizhaoff@gmail.com
 "        Version: 0.2.1
-"   Date Created: Thu 09 Sep 2011 10:30:09 AM EST 
-"  Last Modified: Fri 09 Dec 2011 01:10:24 PM EST 
+"   Date Created: Thu 09 Sep 2011 10:30:09 AM EST
+"  Last Modified: Fri 09 Dec 2011 01:10:24 PM EST
 "
 "        History: 0.1.0 - working, but it will run the script everytime to check
 "                 syntax. Should use osacompile but strangely it does not give
@@ -25,24 +25,25 @@
 "
 "============================================================================
 
-if exists("g:loaded_syntastic_applescript_osacompile_checker")
+if exists('g:loaded_syntastic_applescript_osacompile_checker')
     finish
 endif
-let g:loaded_syntastic_applescript_osacompile_checker=1
+let g:loaded_syntastic_applescript_osacompile_checker = 1
 
-function! SyntaxCheckers_applescript_osacompile_IsAvailable()
-    return executable('osacompile')
-endfunction
+let s:save_cpo = &cpo
+set cpo&vim
 
-function! SyntaxCheckers_applescript_osacompile_GetLocList()
-    let makeprg = syntastic#makeprg#build({
-                \ 'exe': 'osacompile',
-                \ 'args': '-o ' . tempname() . '.scpt ' })
+function! SyntaxCheckers_applescript_osacompile_GetLocList() dict
+    let makeprg = self.makeprgBuild({ 'args_after': '-o ' . tempname() . '.scpt' })
     let errorformat = '%f:%l:%m'
-
     return SyntasticMake({ 'makeprg': makeprg, 'errorformat': errorformat })
 endfunction
 
 call g:SyntasticRegistry.CreateAndRegisterChecker({
     \ 'filetype': 'applescript',
-    \ 'name': 'osacompile'})
+    \ 'name': 'osacompile' })
+
+let &cpo = s:save_cpo
+unlet s:save_cpo
+
+" vim: set sw=4 sts=4 et fdm=marker:

@@ -1,6 +1,6 @@
 "============================================================================
 "File:        mri.vim
-"Description: Syntax checking plugin for syntastic.vim
+"Description: Syntax checking plugin for syntastic
 "Maintainer:  Martin Grenfell <martin.grenfell at gmail dot com>
 "License:     This program is free software. It comes without any warranty,
 "             to the extent permitted by applicable law. You can redistribute
@@ -10,29 +10,35 @@
 "
 "============================================================================
 
-if exists("g:loaded_syntastic_ruby_mri_checker")
+if exists('g:loaded_syntastic_ruby_mri_checker')
     finish
 endif
-let g:loaded_syntastic_ruby_mri_checker=1
+let g:loaded_syntastic_ruby_mri_checker = 1
 
-if !exists("g:syntastic_ruby_exec")
-    let g:syntastic_ruby_exec = "ruby"
-endif
+let s:save_cpo = &cpo
+set cpo&vim
 
-function! SyntaxCheckers_ruby_mri_IsAvailable()
-    return executable(expand(g:syntastic_ruby_exec))
+function! SyntaxCheckers_ruby_mri_IsAvailable() dict
+    if !exists('g:syntastic_ruby_mri_exec') && exists('g:syntastic_ruby_exec')
+        let g:syntastic_ruby_mri_exec = g:syntastic_ruby_exec
+        call self.log('g:syntastic_ruby_exec =', g:syntastic_ruby_exec)
+    endif
+    return executable(self.getExec())
 endfunction
 
-function! SyntaxCheckers_ruby_mri_GetLocList()
-    let exe = expand(g:syntastic_ruby_exec)
-    if !has('win32')
-        let exe = 'RUBYOPT= ' . exe
+function! SyntaxCheckers_ruby_mri_GetHighlightRegex(i)
+    if stridx(a:i['text'], 'assigned but unused variable') >= 0
+        let term = split(a:i['text'], ' - ')[1]
+        return '\V\<' . escape(term, '\') . '\>'
     endif
 
-    let makeprg = syntastic#makeprg#build({
-                \ 'exe': exe,
-                \ 'args': '-w -T1 -c',
-                \ 'subchecker': 'mri' })
+    return ''
+endfunction
+
+function! SyntaxCheckers_ruby_mri_GetLocList() dict
+    let makeprg = self.makeprgBuild({
+        \ 'args': '-w -T1',
+        \ 'args_after': '-c' })
 
     "this is a hack to filter out a repeated useless warning in rspec files
     "containing lines like
@@ -41,18 +47,36 @@ function! SyntaxCheckers_ruby_mri_GetLocList()
     "
     "Which always generate the warning below. Note that ruby >= 1.9.3 includes
     "the word "possibly" in the warning
-    let errorformat = '%-G%.%#warning: %\(possibly %\)%\?useless use of == in void context'
+    let errorformat = '%-G%\m%.%#warning: %\%%(possibly %\)%\?useless use of == in void context,'
 
     " filter out lines starting with ...
     " long lines are truncated and wrapped in ... %p then returns the wrong
     " column offset
-    let errorformat .= ',%-G%\%.%\%.%\%.%.%#'
+    let errorformat .= '%-G%\%.%\%.%\%.%.%#,'
 
-    let errorformat .= ',%-GSyntax OK,%E%f:%l: syntax error\, %m'
-    let errorformat .= ',%Z%p^,%W%f:%l: warning: %m,%Z%p^,%W%f:%l: %m,%-C%.%#'
-    return SyntasticMake({ 'makeprg': makeprg, 'errorformat': errorformat })
+    let errorformat .=
+        \ '%-GSyntax OK,'.
+        \ '%E%f:%l: syntax error\, %m,'.
+        \ '%Z%p^,'.
+        \ '%W%f:%l: warning: %m,'.
+        \ '%Z%p^,'.
+        \ '%W%f:%l: %m,'.
+        \ '%-C%.%#'
+
+    let env = syntastic#util#isRunningWindows() ? {} : { 'RUBYOPT': '' }
+
+    return SyntasticMake({
+        \ 'makeprg': makeprg,
+        \ 'errorformat': errorformat,
+        \ 'env': env })
 endfunction
 
 call g:SyntasticRegistry.CreateAndRegisterChecker({
     \ 'filetype': 'ruby',
-    \ 'name': 'mri'})
+    \ 'name': 'mri',
+    \ 'exec': 'ruby'})
+
+let &cpo = s:save_cpo
+unlet s:save_cpo
+
+" vim: set sw=4 sts=4 et fdm=marker:
