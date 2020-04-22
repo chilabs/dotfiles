@@ -11,7 +11,7 @@ fi
 
 #Mac has different ls and different way of checking colors
 if [[ "$platform" == 'mac' ]]; then
-    alias vim="/Applications/MacVim.app/Contents/MacOS/Vim"
+    alias vim="/usr/local/bin/mvim"
     alias ls='ls -G'
     alias grep='grep --color=auto'
     alias fgrep='fgrep --color=auto'

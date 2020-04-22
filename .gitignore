@@ -1,5 +1,5 @@
 ssh/config
-vim/.vim-fuf-data/
-vim/.vim/.netrwhist
-vim/.vim/bundle/
+vim/vim-fuf-data/
+vim/vim/.netrwhist
+vim/vim/bundle/
 

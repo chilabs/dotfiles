@@ -3,7 +3,7 @@
 "call pathogen#infect()
 
 "File specific settings
-set nocp
+set nocompatible
 filetype off
 
 set rtp+=~/.vim/bundle/Vundle.vim
@@ -14,6 +14,8 @@ call vundle#begin()
 Plugin 'VundleVim/Vundle.vim'
 
 " original repos on github
+Plugin 'prettier/vim-prettier'
+Plugin 'flowtype/vim-flow'
 Plugin 'godlygeek/csapprox'
 Plugin 'Lokaltog/vim-easymotion'
 Plugin 'altercation/vim-colors-solarized'
@@ -24,7 +26,8 @@ Plugin 'ervandew/supertab'
 Plugin 'kien/ctrlp.vim'
 Plugin 'mileszs/ack.vim'
 Plugin 'tpope/vim-surround'
-Plugin 'scrooloose/syntastic'
+Plugin 'tpope/vim-abolish'
+Plugin 'vim-syntastic/syntastic'
 Plugin 'scrooloose/nerdtree'
 Plugin 'scrooloose/nerdcommenter'
 
@@ -63,7 +66,13 @@ if has('autocmd')
 
    autocmd CursorMovedI * if pumvisible() == 0|pclose|endif
    autocmd InsertLeave * if pumvisible() == 0|pclose|endif
+   "Get rid of sounds
+   autocmd! GUIEnter * set vb t_vb=
+
 endif
+
+"Get rid of sounds
+set visualbell t_vb=
 
 "Default cinkeys without colon
 setlocal cinkeys=0{,0},0),0#,!^F,o,O,e
@@ -94,7 +103,7 @@ nnoremap ; :
 set showmode
 set showcmd
 
-"Set Leader Key to ,
+"Set Leader Key to ' '
 let mapleader = " "
 
 "No annoying backup files
@@ -172,6 +181,26 @@ set nowrap
 
 "Toggle syntastic ON/OFF
 nnoremap <leader>s :SyntasticToggleMode<CR>
+let g:syntastic_javascript_checkers=['eslint']
+let g:syntastic_javascript_eslint_generic = 1
+let g:syntastic_javascript_eslint_exec = '/bin/ls'
+let g:syntastic_javascript_eslint_exe='$(npm bin)/eslint'
+let g:syntastic_javascript_eslint_args='-f compact'
+nnoremap <leader>j :SyntasticCheck<cr>
+
+set statusline+=%#warningmsg#
+set statusline+=%{SyntasticStatuslineFlag()}
+set statusline+=%*
+
+let g:syntastic_always_populate_loc_list = 1
+let g:syntastic_auto_loc_list = 1
+let g:syntastic_check_on_open = 1
+let g:syntastic_check_on_wq = 0
+
+let g:syntastic_error_symbol = '❌'
+let g:syntastic_style_error_symbol = '⁉️'
+let g:syntastic_warning_symbol = '⚠️'
+let g:syntastic_style_warning_symbol = '💩'
 
 "NerdTree
 map <F2> :NERDTreeToggle<CR>
@@ -218,10 +247,16 @@ noremap   <Down>   <NOP>
 noremap   <Left>   <NOP>
 noremap   <Right>  <NOP>
 
+"Prettier
+let g:prettier#config#bracket_spacing = 'true'
+
 "Copied from Fuzzy Finder sample VIMRC mappings with some slight modifications
 let g:fuf_modesDisable = []
 let g:fuf_mrufile_maxItem = 400
 let g:fuf_mrucmd_maxItem = 400
+let g:fuf_coveragefile_exclude = '\(build\|lib\|node_module\)'
+let g:fuf_reuseWindow = 0
+
 nnoremap <silent> sj     :FufBuffer<CR>
 nnoremap <silent> sk     :FufFileWithCurrentBufferDir<CR>
 nnoremap <silent> sK     :FufFileWithFullCwd<CR>
