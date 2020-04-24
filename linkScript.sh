@@ -26,6 +26,10 @@ ln -s ~/dotfiles/vim/vim ~/.vim
 ln -s ~/dotfiles/vim/vim-fuf-data ~/.vim-fuf-data
 ln -s ~/dotfiles/vim/vimfuzzyfinder ~/.vimfuzzyfinder
 
+if [ ! -d ~/dotfiles/vim/vim/bundle/Vundle.vim/ ]; then
+  cp -r ~/dotfiles/vim/Vundle.vim ~/dotfiles/vim/vim/bundle/Vundle.vim/
+fi
+
 #ACK
 echo 'Linking ack dot files...'
 
