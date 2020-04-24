@@ -1,17 +1,25 @@
+echo 'Starting script...'
+
 #BASH
-rm ~/.profile
-rm ~/.bashrc
-rm ~/.bash_logout
+echo 'Linking bash dot files...'
+
+rm -f ~/.profile
+rm -f ~/.bashrc
+rm -f ~/.bash_logout
 
 ln -s ~/dotfiles/bash/profile ~/.profile
 ln -s ~/dotfiles/bash/bashrc ~/.bashrc
 ln -s ~/dotfiles/bash/logout ~/.bash_logout
 
+source ~/.bashrc
+
 #VIM
-rm ~/.vimrc
-rm ~/.vim
-rm ~/.vim-fuf-data
-rm ~/.vimfuzzyfinder
+echo 'Linking vim dot files...'
+
+rm -f ~/.vimrc
+rm -rf ~/.vim/
+rm -f ~/.vim-fuf-data
+rm -f ~/.vimfuzzyfinder
 
 ln -s ~/dotfiles/vim/vimrc ~/.vimrc
 ln -s ~/dotfiles/vim/vim ~/.vim
@@ -19,14 +27,21 @@ ln -s ~/dotfiles/vim/vim-fuf-data ~/.vim-fuf-data
 ln -s ~/dotfiles/vim/vimfuzzyfinder ~/.vimfuzzyfinder
 
 #ACK
-rm ~/.ackrc
+echo 'Linking ack dot files...'
 
+rm -f ~/.ackrc
 ln -s ~/dotfiles/ack/ackrc ~/.ackrc
 
 #GIT
-rm ~/.gitconfig
+echo 'Linking git dot files...'
+
+rm -f ~/.gitconfig
 ln -s ~/dotfiles/git/gitconfig ~/.gitconfig
 
 #Tmux
-rm ~/.tmux.conf
+echo 'Linking tmux dot files...'
+
+rm -f ~/.tmux.conf
 ln -s ~/dotfiles/tmux/tmux.conf ~/.tmux.conf
+
+echo 'Success'

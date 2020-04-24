@@ -1,10 +1,19 @@
-ANDROID_HOME=/Users/$USER/Library/Android/sdk
-PATH=$PATH:/home/peter/.cabal/bin
-PATH=$PATH:$ANDROID_HOME/tools:$ANDROID_HOME/platform-tools
-
 # set PATH so it includes user's private bin if it exists
 if [ -d "$HOME/bin" ] ; then
     PATH=$HOME/bin:$PATH
 fi
 
 EDITOR=/home/peter/bin/vim
+
+# RVM
+PATH=$PATH:$ANDROID_HOME/tools:$ANDROID_HOME/platform-tools
+
+PATH=$PATH:$HOME/.rvm/bin # Add RVM to PATH for scripting
+
+# NVM
+NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+
+# Android
+ANDROID_HOME=/Users/$USER/Library/Android/sdk

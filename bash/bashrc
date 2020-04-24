@@ -3,23 +3,19 @@
 # for examples
 
 # Configuration Settings
-if [ -f ~/dotfiles/bash/.config ]; then 
-    . ~/dotfiles/bash/.config
+if [ -f ~/dotfiles/bash/config ]; then
+    . ~/dotfiles/bash/config
 fi
 
 # Environment Variables
-if [ -f ~/dotfiles/bash/.env ]; then 
-    . ~/dotfiles/bash/.env
+if [ -f ~/dotfiles/bash/env ]; then
+    . ~/dotfiles/bash/env
 fi
 
 # Aliases
-if [ -f ~/dotfiles/bash/.aliases ]; then 
-    . ~/dotfiles/bash/.aliases
+if [ -f ~/dotfiles/bash/aliases ]; then
+    . ~/dotfiles/bash/aliases
 fi
+
 [[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm" # Load RVM into a shell session *as a function*
 
-PATH=$PATH:$HOME/.rvm/bin # Add RVM to PATH for scripting
-
-export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
